@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+<body>
+  <div id="app" v-cloak>
+    {{ totalPrice }}
+    {{ totalPrice }}
+    {{ totalPriceMethods() }}
+    {{ totalPriceMethods() }}
+  </div>
+
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          price: 100,
+          number: 5
+        }
+      },
+      methods: {
+        totalPriceMethods() {
+          console.log('methods');
+          return this.number * this.price
+        }
+      },
+      computed: {
+        totalPrice: app => app.price * app.number
+      },
+      watch: {
+
+      }
+    })
+  </script>
+</body>
+</html>

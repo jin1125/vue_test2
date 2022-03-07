@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+<body>
+  <!-- <a id="google_link">google</a> -->
+
+  <div id="app">
+    {{ message }}
+    <a :href="google">google</a>
+    <br>
+    <a :href="book.url">{{ book.title }}</a>
+    <br>
+    <input v-bind="formInput">
+  </div>
+
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          message: 'hello',
+          google:  'https://google.com',
+          book: {
+            title: 'title',
+            url: 'https://google.com',
+          },
+          formInput: {
+            name: 'your_name',
+            placeholder: '入力してください',
+          }
+        }
+      }
+    })
+
+    // const google_link = document.getElementById('google_link');
+    // google_link.href = 'https://google.com';
+  </script>
+</body>
+</html>

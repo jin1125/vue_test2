@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(member, index) in members">
+        {{ index }}:{{ member }}
+      </li>
+    </ul>
+
+    <ul>
+      <li v-for="(value, key, index) in book">
+        {{ index }} : {{ key }} : {{ value }}
+      </li>
+    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th>it</th>
+          <th>title</th>
+          <th>author</th>
+          <th>url</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="book in books" :key="book.id">
+          <td>{{ book.id }}</td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.url }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          members: ['honda', 'kagawa', 'nagatomo'],
+          book: {
+            title: 'title',
+            author: 'author',
+            url: 'https://google.com'
+          },
+          books:[
+            {
+              id: 1,
+              title: 'title1',
+              author: 'author',
+              url: 'https://google.com'
+            },
+            {
+              id: 2,
+              title: 'title2',
+              author: 'author',
+              url: 'https://google.com'
+            },
+            {
+              id: 3,
+              title: 'title3',
+              author: 'author',
+              url: 'https://google.com'
+            },
+          ]
+        }
+      }
+    })
+  </script>
+</body>
+</html>

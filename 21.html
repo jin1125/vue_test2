@@ -25,7 +25,30 @@
       data() {
         return {
           price: 100,
-          number: 5
+          number: 5,
+          reactiveTest: {
+            name: 'test'
+          },
+          books:[
+            {
+              id: 1,
+              title: 'title1',
+              author: 'author',
+              url: 'https://google.com'
+            },
+            {
+              id: 2,
+              title: 'title2',
+              author: 'author',
+              url: 'https://google.com'
+            },
+            {
+              id: 3,
+              title: 'title3',
+              author: 'author',
+              url: 'https://google.com'
+            },
+          ]
         }
       },
       methods: {
@@ -38,7 +61,12 @@
         totalPrice: app => app.price * app.number
       },
       watch: {
-
+        books: {
+          handler() {
+            console.log('change');
+          },
+          deep: true
+        }
       }
     })
   </script>

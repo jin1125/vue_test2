@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- <input :value="test" @input="test = $event.target.value" type="text"> -->
+    {{ test }}
+
+    <input type="text" @input="checkEvent">
+  </div>
+
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data(){
+        return {
+          test: 'aaa'
+      }},
+      methods: {
+        checkEvent(e) {
+          console.log(e.target.value);
+          console.log(this.test);
+          this.test = e.target.value
+        }
+      }
+    })
+  </script>
+</body>
+</html>

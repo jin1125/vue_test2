@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BookList from '../views/BookList.vue'
 import BookDetail from '../components/BookDetail.vue'
+import ItemList from '../views/ItemList.vue'
+import NotFound from '../components/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -30,11 +32,22 @@ const routes = [
     name: 'Book',
     component: BookDetail,
     props: route => ({
-      id: route.params.id,
+      id: Number(route.params.id),
       title: route.params.title,
       content: route.params.content,
     })
   },
+  {
+    path: '/item/:id',
+    name: 'ItemList ',
+    component: ItemList,
+  },
+  {
+    path: '*',
+    // redirect: '/'
+    name: 'NotFound',
+    component: NotFound
+  }
 ]
 
 const router = new VueRouter({

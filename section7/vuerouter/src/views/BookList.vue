@@ -19,10 +19,10 @@ export default {
     return {
       bookIndex: -1,
       books: [
-      {id: 1 , title: 'title1', content: 'detail1'},
-      {id: 2 , title: 'title2', content: 'detail2'},
-      {id: 3 , title: 'title3', content: 'detail3'}
-    ]
+        {id: 1 , title: 'title1', content: 'detail1'},
+        {id: 2 , title: 'title2', content: 'detail2'},
+        {id: 3 , title: 'title3', content: 'detail3'}
+      ]
     }
   },
   methods: {

@@ -1,10 +1,14 @@
 <template>
   <v-app>
-    <Header/>
+    <Header
+      @delete-local-storage="deleteLocalStorage"
+    />
     <v-main>
       <v-container>
         <router-view
+          :books="books"
           @add-book-list="addBook"
+          @update-book-info="updateBookInfo"
         />
       </v-container>
     </v-main>
@@ -13,8 +17,8 @@
 </template>
 
 <script>
-import Header from '@/global/Header.vue';
-import Footer from '@/global/Footer.vue';
+import Header from '@/global/Header';
+import Footer from '@/global/Footer';
 
 const STORAGE_KEY = 'books'
 
@@ -33,16 +37,16 @@ export default {
   mounted() {
     if (localStorage.getItem(STORAGE_KEY)) {
       try {
-        this.books = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        this.books = JSON.parse(localStorage.getItem(STORAGE_KEY))
       } catch(e) {
-        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY)
       }
     }
   },
   methods: {
     addBook(e) {
       this.books.push({
-        id: this.books.lenght,
+        id: this.books.length,
         title: e.title,
         image: e.image,
         description: e.description,
@@ -50,6 +54,8 @@ export default {
         memo: ''
       });
       this.saveBooks();
+      // console.log(this.books.slice(-1)[0].id);
+      this.goToEditPage(this.books.slice(-1)[0].id)
     },
     removeBook(x) {
       this.books.splice(x, 1);
@@ -58,6 +64,32 @@ export default {
     saveBooks() {
       const parsed = JSON.stringify(this.books);
       localStorage.setItem(STORAGE_KEY, parsed);
+    },
+    updateBookInfo(e) {
+      const updateInfo = {
+        id: e.id,
+        readDate: e.readDate,
+        memo: e.memo,
+        title: this.books[e.id].title,
+        image: this.books[e.id].image,
+        description: this.books[e.id].description,
+      }
+
+      this.books.splice(e.id, 1, updateInfo)
+      this.saveBooks()
+      this.$router.push('/')
+    },
+    goToEditPage(id) {
+      this.$router.push(`/edit/${id}`)
+    },
+    deleteLocalStorage() {
+      const isDeleted = 'delete?'
+      if(window.confirm(isDeleted)) {
+        localStorage.setItem(STORAGE_KEY, '');
+        localStorage.removeItem(STORAGE_KEY)
+        this.books = []
+        window.location.reload()
+      }
     }
   }
 };

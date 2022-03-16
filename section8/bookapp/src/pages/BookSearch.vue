@@ -1,66 +1,64 @@
 <template>
   <div>
-    <v-container>
-      <v-row>
-        <v-col cols="6">
-          <v-text-field
-            label="本のタイトルを検索"
-            v-model="keyword"
-          >
-          </v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col cols="3">
-          <v-btn
-            color="primary"
-            @click="search(keyword)"
-          >
-            search
-          </v-btn>
-        </v-col>
-        <v-col cols="3">
-          <v-btn
-            color="secondary"
-            to="/"
-          >
-            back
-          </v-btn>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col
-          cols="12"
-          md="6"
-          v-for="(book, index) in searchResults" :key="book.index"
+    <v-row>
+      <v-col cols="6">
+        <v-text-field
+          label="本のタイトルを検索"
+          v-model="keyword"
         >
-          <v-card class="mx-auto">
-            <v-row>
-              <v-col cols="4">
-                <v-img :src="book.image"></v-img>
-              </v-col>
-              <v-col cols="8">
-                <v-card-title>
-                  {{ book.title }}
-                </v-card-title>
-                {{ book.description }}
-                <v-spacer></v-spacer>
-                <v-card-actions>
-                  <v-btn
-                    fab dark color="indigo"
-                    @click="addBookList(index)"
-                  >
-                  <v-icon dark>mdi-plus</v-icon>
-                </v-btn>
-                </v-card-actions>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+        </v-text-field>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col cols="3">
+        <v-btn
+          color="primary"
+          @click="search(keyword)"
+        >
+          search
+        </v-btn>
+      </v-col>
+      <v-col cols="3">
+        <v-btn
+          color="secondary"
+          to="/"
+        >
+          back
+        </v-btn>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col
+        cols="12"
+        md="6"
+        v-for="(book, index) in searchResults" :key="book.index"
+      >
+        <v-card class="mx-auto">
+          <v-row>
+            <v-col cols="4">
+              <v-img :src="book.image"></v-img>
+            </v-col>
+            <v-col cols="8">
+              <v-card-title>
+                {{ book.title }}
+              </v-card-title>
+              {{ book.description }}
+              <v-spacer></v-spacer>
+              <v-card-actions>
+                <v-btn
+                  fab dark color="indigo"
+                  @click="addBookList(index)"
+                >
+                <v-icon dark>mdi-plus</v-icon>
+              </v-btn>
+              </v-card-actions>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -74,6 +72,9 @@ export default {
     }
   },
   methods: {
+    addBookList(index) {
+      this.$emit('add-book-list', this.searchResults[index])
+    },
     async search(keyword) {
       this.searchResults = []
       const baseUrl = 'https://www.googleapis.com/books/v1/volumes?'

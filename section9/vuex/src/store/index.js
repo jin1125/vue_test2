@@ -5,9 +5,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    count: 0
+    count: 0,
+    users: [
+      {id: 1, name: 'otani', isVisible: true},
+      {id: 2, name: 'daru', isVisible: false},
+      {id: 3, name: 'nishikiori', isVisible: true},
+    ]
   },
   getters: {
+    visibleUsers(state) {
+      return state.users.filter(user => user.isVisible)
+    },
+    getUserById: state => id => {
+      return state.users.find(user=>user.id === id)
+    }
   },
   mutations: {
     increment(state) {

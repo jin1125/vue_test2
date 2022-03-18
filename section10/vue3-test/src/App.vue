@@ -5,15 +5,54 @@
     <router-link to="/children">Children</router-link> |
     <router-link to="/teleport-test">Teleport</router-link> |
     <router-link to="/composition-test">Composition</router-link> |
+    <router-link to="/props-emit-test">PropsEmit</router-link> |
+    <router-link to="/function-test">Function</router-link> |
+    <router-link to="/router-test">Router</router-link> |
+    <router-link to="/vuex-test">Vuex</router-link> |
   </nav>
-  <router-view/>
+  <router-view
+    :setupBooks="setupBooks"
+    :dataBooks="dataBooks"
+    @custom-event="parentMethods"
+  />
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
 export default {
+  setup() {
+    const setupBooks = reactive([
+      {
+        title: 'setupTitle1',
+        author: 'setupAuthor1'
+      },
+      {
+        title: 'setupTitle2',
+        author: 'setupAuthor2'
+      },
+    ])
+
+    return {
+      setupBooks
+    }
+  },
   data() {
     return {
-
+      dataBooks: [
+        {
+          title: 'dataTitle1',
+          author: 'dataAuthor1'
+        },
+        {
+          title: 'dataTitle2',
+          author: 'dataAuthor2'
+        },
+      ]
+    }
+  },
+  methods: {
+    parentMethods(e) {
+      console.log(e);
     }
   },
   provide() {

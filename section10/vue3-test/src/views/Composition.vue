@@ -8,6 +8,14 @@
     <p>{{ book.author[0] }}</p>
     <p>2: {{ titleRef }}</p>
     <p>2: {{ authorRef }}</p>
+    <button @click="btnClick">click</button>
+    <p>{{ totalPrice }}</p>
+    <div>
+      <input type="text" v-model="search">
+    </div>
+    <div>
+      <input type="text" v-model="searchEffect">
+    </div>
 
     <p>{{ number }}</p>
     <p>{{ sports }}</p>
@@ -15,7 +23,7 @@
 </template>
 
 <script>
-import {reactive, ref, toRefs} from 'vue'
+import {reactive, ref, toRefs, computed, watch, watchEffect, onMounted} from 'vue'
 
 export default {
   setup() {
@@ -31,6 +39,36 @@ export default {
       authorRef: ['otani2', 'ito2']
     })
 
+    const item = reactive({
+      price: 100,
+      number: 1
+    })
+
+    const totalPrice = computed(() => {
+      return item.price * item.number
+    })
+
+    const btnClick = (e) => {
+        console.log(book.title)
+        console.log(e)
+    }
+
+    const search = ref('')
+
+    watch(search, (newValue, prevValue) => {
+      console.log(search.value);
+      console.log(newValue);
+      console.log(prevValue);
+    })
+
+    const searchEffect = ref('')
+    watchEffect(()=>{
+      console.log(searchEffect.value);
+    })
+
+    onMounted(()=>{
+      console.log('onMounted');
+    })
 
     // console.log('setup');
     // console.log(this);
@@ -40,7 +78,12 @@ export default {
       age: age,
       nameRef: nameRef,
       book: book,
-      ...toRefs(booktoRefs)
+      ...toRefs(booktoRefs),
+      btnClick,
+      item,
+      totalPrice,
+      search,
+      searchEffect
     }
   },
   data() {
